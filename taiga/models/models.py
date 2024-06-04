@@ -134,7 +134,17 @@ class Users(ListResource):
     Users factory class
     """
 
+    endpoint = "users"
+
     instance = User
+
+    def list_users(self):
+        """
+        Get a list of :class:`User`
+
+        """
+        response = self.requester.get("/{endpoint}", endpoint=self.instance.endpoint)
+        return Users.parse(self.requester, response.json())
 
 
 class Membership(InstanceResource):
